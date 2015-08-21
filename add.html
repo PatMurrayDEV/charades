@@ -39,10 +39,10 @@
           </div>
 
           <div class="inner cover">
-            <form role="form">
+            <form role="form" name=sp2>
               <div class="form-group">
                 <label for="word">Word:</label>
-                <input type="word" class="form-control" id="email">
+                <input type="text" class="form-control" id="word">
               </div>
               <div class="form-group">
                   <div class="form-group">
@@ -57,7 +57,7 @@
                     </select>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-lg btn-default">Submit</button>
+                <button type="button" onclick="submitForm()" class="btn btn-lg btn-default">Submit</button>
               </form>
             <p class="lead">
               <a onclick="myFunction()" class="btn btn-lg btn-default">New Word</a>

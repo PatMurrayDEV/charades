@@ -87,3 +87,30 @@ function displayUsed() {
           .appendTo(li);
   });
 }
+
+function submitForm() {
+
+  var wordText = document.forms["sp2"].elements["word"].value;
+  var wordType = document.forms["sp2"].elements["sel1"].value
+
+  var WordNew = Parse.Object.extend("Word");
+  var wordToSave = new WordNew();
+
+  wordToSave.save({
+    word: wordText,
+    type: wordType
+  }, {
+    success: function(wordToSave) {
+      // Execute any logic that should take place after the object is saved.
+      alert('Saved: ' + wordToSave.word);
+      document.forms["sp2"].reset();
+    },
+    error: function(wordToSave, error) {
+      // Execute any logic that should take place if the save fails.
+      // error is a Parse.Error with an error code and message.
+      alert('Failed to create new object, with error code: ' + error.message);
+    }
+  });
+
+
+}
