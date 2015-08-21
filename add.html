@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="style.css">
 
 
-    <title>Play - Charades</title>
+    <title>Add Word - Charades</title>
   </head>
 
   <body>
@@ -30,8 +30,8 @@
               <h3 class="masthead-brand">Charades</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li class="active"><a href="#">Play</a></li>
-                  <li><a href="add.html">Add Word</a></li>
+                  <li><a href="index.html">Play</a></li>
+                  <li class="active"><a href="#">Add Word</a></li>
                   <li><a href="https://twitter.com/_patmurray">Contact</a></li>
                 </ul>
               </nav>
@@ -39,8 +39,26 @@
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading" id="the-word">Loading...</h1>
-            <p class="lead" id="the-type">Loading...</p>
+            <form role="form">
+              <div class="form-group">
+                <label for="word">Word:</label>
+                <input type="word" class="form-control" id="email">
+              </div>
+              <div class="form-group">
+                  <div class="form-group">
+                    <label for="sel1">Charade Type</label>
+                    <select class="form-control" id="sel1">
+                      <option value="" disabled selected>Select Type</option>
+                      <option>Book</option>
+                      <option>Movie</option>
+                      <option>Song</option>
+                      <option>TV Show</option>
+                      <option>Person/Character</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-lg btn-default">Submit</button>
+              </form>
             <p class="lead">
               <a onclick="myFunction()" class="btn btn-lg btn-default">New Word</a>
             </p>
