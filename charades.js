@@ -34,6 +34,9 @@ function getNewWord() {
       var typeBox = document.getElementById("the-type");
       typeBox.innerHTML = words.models[rand].attributes.type;
 
+      var numbBox = document.getElementById("numb");
+      numbBox.innerHTML = words.length;
+
       thisWord = words.models[rand];
       console.log(thisWord);
 
