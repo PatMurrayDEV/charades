@@ -116,8 +116,8 @@ function submitForm() {
       }, {
         success: function(wordToSave) {
           // Execute any logic that should take place after the object is saved.
-          alert('Saved: ' + wordToSave.word);
           document.forms["sp2"].reset();
+          alert('Saved: ' + wordText + ' to ' + wordType);
         },
         error: function(wordToSave, error) {
           // Execute any logic that should take place if the save fails.
@@ -147,25 +147,27 @@ function removeWord() {
     word: thisWord.attributes.word,
     type: thisWord.attributes.type
   }, {
-  success: function(usedWordToSave) {
-    // Execute any logic that should take place after the object is saved.
-    alert('New object created with objectId: ' + usedWordToSave.id);
-    thisWord.destroy({
-      success: function(thisWord) {
-        // The object was deleted from the Parse Cloud.
-      },
-      error: function(thisWord, error) {
-        // The delete failed.
-        // error is a Parse.Error with an error code and message.
-      }
-    });
-  },
-  error: function(usedWordToSave, error) {
-    // Execute any logic that should take place if the save fails.
-    // error is a Parse.Error with an error code and message.
-    alert('Failed to create new object, with error code: ' + error.message);
-  }
-});
+    success: function(usedWordToSave) {
+      // Execute any logic that should take place after the object is saved.
+      var wordBox = document.getElementById("the-word");
+      wordBox.innerHTML = "No Word";
 
-
+      var typeBox = document.getElementById("the-type");
+      typeBox.innerHTML = " ";
+      thisWord.destroy({
+        success: function(thisWord) {
+          // The object was deleted from the Parse Cloud.
+        },
+        error: function(thisWord, error) {
+          // The delete failed.
+          // error is a Parse.Error with an error code and message.
+        }
+      });
+    },
+    error: function(usedWordToSave, error) {
+      // Execute any logic that should take place if the save fails.
+      // error is a Parse.Error with an error code and message.
+      alert('Failed to create new object, with error code: ' + error.message);
+    }
+  });
 }
