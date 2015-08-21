@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="style.css">
 
 
-    <title>Play - Charades</title>
+    <title>Played Words - Charades</title>
   </head>
 
-  <body onload="myFunction()">
+  <body onload="getArrayOfUsed()">
 
     <div class="site-wrapper">
 
@@ -30,9 +30,9 @@
               <h3 class="masthead-brand">Charades</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li class="active"><a href="#">Play</a></li>
+                  <li><a href="index.html">Play</a></li>
                   <li><a href="add.html">Add Word</a></li>
-                  <li><a href="played.html">Played Words</a></li>
+                  <li class="active"><a href="#">Played Words</a></li>
                   <li><a href="https://twitter.com/_patmurray">Contact</a></li>
                 </ul>
               </nav>
@@ -40,12 +40,9 @@
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading" id="the-word">Loading...</h1>
-            <p class="lead" id="the-type">Loading...</p>
-            <p class="lead">
-              <a onclick="myFunction()" class="btn btn-lg btn-default">New Word</a>
-              <a onclick="removeWord()" class="btn btn-lg btn-success">Played</a>
-            </p>
+            <div id="results">
+              <p id="loadingSign">Loading...</p>
+            </div>
           </div>
 
           <div class="mastfoot">

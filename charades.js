@@ -1,9 +1,9 @@
+var thisWord;
+
 $(function() {
     Parse.$ = jQuery;
 
     Parse.initialize("ygVSxtL1Mhth4bDqQ64jpCL2F911WrH9JaDI8bSF", "UODjACVfGZq9IvQcGEWnrXSVSiIqXsjwb0WCK83e");
-
-    getNewWord();
 
 });
 
@@ -34,6 +34,9 @@ function getNewWord() {
       var typeBox = document.getElementById("the-type");
       typeBox.innerHTML = words.models[rand].attributes.type;
 
+      thisWord = words.models[rand];
+      console.log(thisWord);
+
     },
     error: function(words, error) {
       console.log(error);
@@ -44,7 +47,7 @@ function getNewWord() {
 
 function getArrayOfUsed() {
 
-  var Word = Parse.Object.extend("UsedWord"),
+  var Word = Parse.Object.extend("PlayedWord"),
     Words = Parse.Collection.extend({
       model: Word
     })
@@ -55,15 +58,8 @@ function getArrayOfUsed() {
     success: function(words) {
       console.log(words);
       console.log(words.length);
-      var rand = Math.floor(Math.random() * words.length);
-      console.log(rand);
-      console.log(words.models[rand].attributes);
 
-      var wordBox = document.getElementById("the-word");
-      wordBox.innerHTML = words.models[rand].attributes.word;
-
-      var typeBox = document.getElementById("the-type");
-      typeBox.innerHTML = words.models[rand].attributes.type;
+      displayUsed(words);
 
     },
     error: function(words, error) {
@@ -73,19 +69,34 @@ function getArrayOfUsed() {
 
 }
 
-function displayUsed() {
-  var cList = $('ul.mylist')
-  $.each(countries, function(i)
-  {
-      var li = $('<li/>')
-          .addClass('ui-menu-item')
-          .attr('role', 'menuitem')
-          .appendTo(cList);
-      var aaa = $('<a/>')
-          .addClass('ui-all')
-          .text(countries[i])
-          .appendTo(li);
-  });
+function displayUsed(used) {
+
+  var listContainer = document.getElementById("results");
+
+  // Make the list itself which is a <ul>
+  var listElement = document.createElement("ul");
+
+  // add it to the page
+  listContainer.appendChild(listElement);
+
+  // Set up a loop that goes through the items in listItems one at a time
+  var numberOfListItems = used.length;
+
+  for( var i =  0 ; i < numberOfListItems ; ++i){
+
+    // create a <li> for each one.
+    var listItem = document.createElement("h3");
+
+    // add the item text
+    listItem.innerHTML = used.models[i].attributes.word;
+
+    // add listItem to the listElement
+    listElement.appendChild(listItem);
+
+  }
+
+  document.getElementById("loadingSign").innerHTML = "";
+
 }
 
 function submitForm() {
@@ -111,6 +122,39 @@ function submitForm() {
       alert('Failed to create new object, with error code: ' + error.message);
     }
   });
+
+}
+
+function removeWord() {
+  console.log(thisWord);
+
+  var UsedWordNew = Parse.Object.extend("PlayedWord");
+  var usedWordToSave = new UsedWordNew();
+
+
+  usedWordToSave.save({
+    word: thisWord.attributes.word,
+    type: thisWord.attributes.type
+  }, {
+  success: function(usedWordToSave) {
+    // Execute any logic that should take place after the object is saved.
+    alert('New object created with objectId: ' + usedWordToSave.id);
+    thisWord.destroy({
+      success: function(thisWord) {
+        // The object was deleted from the Parse Cloud.
+      },
+      error: function(thisWord, error) {
+        // The delete failed.
+        // error is a Parse.Error with an error code and message.
+      }
+    });
+  },
+  error: function(usedWordToSave, error) {
+    // Execute any logic that should take place if the save fails.
+    // error is a Parse.Error with an error code and message.
+    alert('Failed to create new object, with error code: ' + error.message);
+  }
+});
 
 
 }
